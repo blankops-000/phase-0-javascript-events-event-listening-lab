@@ -1,13 +1,16 @@
-function addingEventListener() {
-  const input = document.getElementById('button');
-
-  function clickAlert() {
-    alert('I was clicked!');
-  }
-
-  input.addEventListener('click', clickAlert);
+function fetchBooks() {
+  return fetch("https://anapioficeandfire.com/api/books")
+    .then((resp) => resp.json())
+    .then((books) => renderBooks(books));
 }
 
-addingEventListener();
+function renderBooks(books) {
+  const main = document.querySelector('main');
+  books.forEach(book => {
+    const h2 = document.createElement('h2');
+    h2.textContent = book.name;
+    main.appendChild(h2);
+  });
+}
 
-
+document.addEventListener('DOMContentLoaded', fetchBooks);
